@@ -18,6 +18,12 @@ public class BlockPlaceListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (event.isCancelled()) {
+            // This is needed if we cancel the event prematurely, as for example canceling block place in water or lava
+            // that has a LOW or LOWEST priority.
+            return;
+        }
+
         String worldName = event.getBlock().getWorld().getName();
         Block block = event.getBlock();
 

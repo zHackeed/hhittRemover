@@ -17,6 +17,11 @@ public class EntityPlaceListener implements Listener {
 
     @EventHandler
     public void onEntityPlace(EntityPlaceEvent event) {
+        if (event.isCancelled()) {
+            // This is needed if we cancel the event on a lower priority, as for example canceling chicken spawn
+            // on LOW, or LOWEST priority.
+            return;
+        }
         String worldName = event.getBlock().getWorld().getName();
         Entity entity = event.getEntity();
 
